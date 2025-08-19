@@ -1,0 +1,244 @@
+print("Bem-vindo ao sistema de gerenciamento de livros!")
+print("Criado por: Jéssica Vasques\n")
+
+# Lista para armazenar os livros cadastrados e variável para o ID global
+lista_livro = []  # Lista que armazenará os livros como dicionários
+id_global = 0     # Variável para gerar IDs únicos para os livros
+
+
+# Função para cadastrar livro
+def cadastrar_livro(id):
+    global lista_livro  # Referencia a lista global
+
+    # Entrada de dados
+    nome = input("Por favor entre com o nome do livro: ")
+    autor = input("Por favor entre com o autor do livro: ")
+    editora = input("Por favor entre com a editora do livro: ")
+
+    # Criação de um dicionário para o livro
+    livro = {
+        "id": id,
+        "nome": nome,
+        "autor": autor,
+        "editora": editora
+    }
+
+    # Adiciona o dicionário na lista de livros
+    lista_livro.append(livro)
+
+
+# Função para consultar livros
+def consultar_livro():
+    while True:
+        print("\n---------- MENU CONSULTAR LIVRO ------------------")
+        print("Escolha a opção desejada:")
+        print("1 - Consultar Todos os Livros")
+        print("2 - Consultar Livro por id")
+        print("3 - Consultar Livro(s) por autor")
+        print("4 - Retornar ao menu")
+
+        opcao = input(">> ")
+
+        if opcao == '1':  # Consultar todos os livros
+            if lista_livro:
+                print("\n----- Todos os Livros -----")
+                for livro in lista_livro:
+                    print(f"\nid: {livro['id']}")
+                    print(f"nome: {livro['nome']}")
+                    print(f"autor: {livro['autor']}")
+                    print(f"editora: {livro['editora']}")
+            else:
+                print("Nenhum livro cadastrado.")
+
+        elif opcao == '2':  # Consultar por ID
+            id_consulta = int(input("Digite o ID do livro: "))
+            encontrado = False
+            for livro in lista_livro:
+                if livro["id"] == id_consulta:
+                    print(f"\nid: {livro['id']}")
+                    print(f"nome: {livro['nome']}")
+                    print(f"autor: {livro['autor']}")
+                    print(f"editora: {livro['editora']}")
+                    encontrado = True
+                    break
+            if not encontrado:
+                print("Livro não encontrado com esse ID.")
+
+        elif opcao == '3':  # Consultar por Autor
+            autor_consulta = input("Digite o nome do autor: ")
+            livros_encontrados = [
+                livro for livro in lista_livro if livro["autor"].lower() == autor_consulta.lower()
+            ]
+            if livros_encontrados:
+                print(f"\n----- Livros do autor {autor_consulta} -----")
+                for livro in livros_encontrados:
+                    print(f"\nid: {livro['id']}")
+                    print(f"nome: {livro['nome']}")
+                    print(f"editora: {livro['editora']}")
+            else:
+                print(f"Nenhum livro encontrado do autor {autor_consulta}.")
+
+        elif opcao == '4':  # Retornar ao menu principal
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
+
+
+# Função para remover um livro
+def remover_livro():
+    global lista_livro  # Referencia a lista global
+    id_remover = int(input("Digite o ID do livro a ser removido: "))
+
+    livro_removido = None
+    for livro in lista_livro:
+        if livro['id'] == id_remover:
+            lista_livro.remove(livro)
+            livro_removido = livro
+            print(f"\nLivro removido: ID: {livro['id']}, Nome: {livro['nome']}, Autor: {livro['autor']}, Editora: {livro['editora']}")
+            break
+
+    if livro_removido is None:
+        print("Id inválido. Não foi encontrado nenhum livro com esse ID.")
+
+
+# Função principal para gerenciar o menu
+def main():
+    global id_global  # Acesso ao ID global
+    while True:
+        # Menu principal
+        print("\n--------------- MENU PRINCIPAL -------------------")
+        print("Escolha a opção desejada:")
+        print("1 - Cadastrar Livro")
+        print("2 - Consultar Livro(s)")
+        print("3 - Remover Livro")
+        print("4 - Sair")
+
+        opcao = input(">> ")
+        if opcao == '1':  # Cadastrar livro
+            id_global += 1  # Aumenta o ID global para cada novo livro
+            cadastrar_livro(id_global)
+
+        elif opcao == '2':  # Consultar livro
+            consultar_livro()
+
+        elif opcao == '3':  # Remover livro
+            remover_livro()
+
+        elif opcao == '4':  # Encerrar o programa
+            print("Programa encerrado. Até logo!")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
+
+
+# Iniciar o programa chamando a função principal
+if __name__ == "__main__":
+    main()
+
+ # Adiciona o dicionário na lista de livros
+ lista_livro.append(livro)
+# Função para consultar livros
+def consultar_livro():
+ while True:
+ print("\n---------- MENU CONSULTAR LIVRO ------------------")
+ print("Escolha a opção desejada:")
+ print("1 - Consultar Todos os Livros")
+ print("2 - Consultar Livro por id")
+ print("3 - Consultar Livro(s) por autor")
+ print("4 - Retornar ao menu")
+
+ opcao = input(">> ")
+
+ if opcao == '1': # Consultar todos os livros
+ if lista_livro:
+ print("\n----- Todos os Livros -----")
+ for livro in lista_livro:
+ print(f"\nid: {livro['id']}")
+ print(f"nome: {livro['nome']}")
+ print(f"autor: {livro['autor']}")
+ print(f"editora: {livro['editora']}")
+ else:
+ print("Nenhum livro cadastrado.")
+
+ elif opcao == '2': # Consultar por ID
+ id_consulta = int(input("Digite o ID do livro: "))
+ encontrado = False
+ for livro in lista_livro:
+ if livro["id"] == id_consulta:
+ print(f"\nid: {livro['id']}")
+ print(f"nome: {livro['nome']}")
+ print(f"autor: {livro['autor']}")
+ print(f"editora: {livro['editora']}")
+ encontrado = True
+ break
+ if not encontrado:
+ print("Livro não encontrado com esse ID.")
+
+ elif opcao == '3': # Consultar por Autor
+ autor_consulta = input("Digite o nome do autor: ")
+ livros_encontrados = [livro for livro in lista_livro if livro["autor"].lower() ==
+autor_consulta.lower()]
+ if livros_encontrados:
+ print(f"\n----- Livros do autor {autor_consulta} -----")
+ for livro in livros_encontrados:
+ print(f"\nid: {livro['id']}")
+ print(f"nome: {livro['nome']}")
+ print(f"editora: {livro['editora']}")
+ else:
+ print(f"Nenhum livro encontrado do autor {autor_consulta}.")
+
+ elif opcao == '4': # Retornar ao menu principal
+ break
+
+ else:
+ print("Opção inválida. Tente novamente.")
+# Função para remover um livro
+def remover_livro():
+ global lista_livro # Referencia a lista global
+ id_remover = int(input("Digite o ID do livro a ser removido: "))
+
+ livro_removido = None
+ for livro in lista_livro:
+ if livro['id'] == id_remover:
+ lista_livro.remove(livro)
+ livro_removido = livro
+ print(f"\nLivro removido: ID: {livro['id']}, Nome: {livro['nome']}, Autor:
+{livro['autor']}, Editora: {livro['editora']}")
+ break
+
+ if livro_removido is None:
+ print("Id inválido. Não foi encontrado nenhum livro com esse ID.")
+# Função principal para gerenciar o menu
+def main():
+ global id_global # Acesso ao ID global
+ while True:
+ # Menu principal
+ print("\n--------------- MENU PRINCIPAL -------------------")
+ print("Escolha a opção desejada:")
+ print("1 - Cadastrar Livro")
+ print("2 - Consultar Livro(s)")
+ print("3 - Remover Livro")
+ print("4 - Sair")
+
+ opcao = input(">> ")
+ if opcao == '1': # Cadastrar livro
+ id_global += 1 # Aumenta o ID global para cada novo livro
+ cadastrar_livro(id_global)
+
+ elif opcao == '2': # Consultar livro
+ consultar_livro()
+
+ elif opcao == '3': # Remover livro
+ remover_livro()
+
+ elif opcao == '4': # Encerrar o programa
+ print("Programa encerrado. Até logo!")
+ break
+
+ else:
+ print("Opção inválida. Tente novamente.")
+# Iniciar o programa chamando a função principal
+if __name__ == "__main__":
+ main()
